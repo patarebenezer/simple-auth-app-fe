@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import AuthSuccess from "./components/AuthSuccess";
+import Dashboard from "./components/Dashboard";
+import Login from "./components/Login";
+import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
+import Logout from "./components/Logout";
+import ResetPassword from "./components/ResetPassword";
+import Signup from "./components/Signup";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App: React.FC = () => {
+ return (
+  <Router>
+   <Routes>
+    <Route path='/' element={<PublicRoute element={Login} />} />
+    <Route path='/sign-up' element={<PublicRoute element={Signup} />} />
+    <Route
+     path='/reset-password'
+     element={<ProtectedRoute element={ResetPassword} />}
+    />
+    <Route path='/auth-success' element={<AuthSuccess />} />
+    <Route path='/dashboard' element={<ProtectedRoute element={Dashboard} />} />
+    <Route path='/logout' element={<ProtectedRoute element={Logout} />} />
+   </Routes>
+  </Router>
+ );
+};
 
 export default App;
